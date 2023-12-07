@@ -1,4 +1,13 @@
 #!/usr/bin/python3
+"""
+Determine if all locked boxes can be opened.
+
+Args:
+- boxes (list): List of lists, each representing a locked box with keys.
+
+Returns:
+- bool: True if all boxes can be opened, False otherwise.
+"""
 
 
 def canUnlockAll(boxes):
