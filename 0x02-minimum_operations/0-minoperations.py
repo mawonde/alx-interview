@@ -10,12 +10,14 @@ def minOperations(n):
 
     """dp[i] represents the minimum operations 
   needed to get i H characters"""
-    dp = [float("inf")] * (n + 1)
-    dp[1] = 0
-
-    for i in range(2, n + 1):
-        for j in range(1, i):
-            if i % j == 0:
-                dp[i] = min(dp[i], dp[j] + i // j)
-
-    return dp[n] if dp[n] != float("inf") else 0
+    if n < 2:
+        return 0
+    list = []
+    i = 1
+    while n != 1:
+        i += 1
+        if n % i == 0:
+            while n % i == 0:
+                n /= i
+                list.append(i)
+    return sum(list)
