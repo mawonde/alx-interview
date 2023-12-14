@@ -1,15 +1,9 @@
 #!/usr/bin/env python3
 
-"""dp[i] represents the minimum operations 
-needed to get i H characters"""
-
 
 def minOperations(n):
-    if n == 1:
-        return 0
-
-    """dp[i] represents the minimum operations 
-  needed to get i H characters"""
+    """dp[i] represents the minimum operations
+    needed to get i H characters"""
     if n < 2:
         return 0
     list = []
