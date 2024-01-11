@@ -1,64 +1,61 @@
 #!/usr/bin/python3
-"""N Queens module"""
-
+""" N queens """
 import sys
 
 
-def is_safe(board, row, col, N):
-    """Check if there is n q in row"""
-    for i in range(col):
-        if board[row][i] == 1:
-            return False
+class NQueen:
+    """ Class Queens """
 
-    
-    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
-        if board[i][j] == 1:
-            return False
+    def __init__(self, n):
+        """ Constructor """
+        self.n = n
+        self.x = [0 for i in range(n + 1)]
+        self.res = []
 
-    
-    for i, j in zip(range(row, N, 1), range(col, -1, -1)):
-        if board[i][j] == 1:
-            return False
+    def place(self, k, i):
+        """ Check if a secure place
+        """
 
-    return True
+        for j in range(1, k):
+            if self.x[j] == i or \
+               abs(self.x[j] - i) == abs(j - k):
+                return 0
+        return 1
 
-def solve_nqueens_util(board, col, N):
-    if col == N:
-        print_solution(board, N)
-        return True
+    def nQueen(self, k):
+        """ Resolve the nqueen
+        """
+        for i in range(1, self.n + 1):
+            if self.place(k, i):
+                self.x[k] = i
+                if k == self.n:
+                    solution = []
+                    for i in range(1, self.n + 1):
+                        solution.append([i - 1, self.x[i] - 1])
+                    self.res.append(solution)
+                else:
+                    self.nQueen(k + 1)
+        return self.res
 
-    res = False
-    for i in range(N):
-        if is_safe(board, i, col, N):
-            board[i][col] = 1
-            res = solve_nqueens_util(board, col + 1, N) or res
-            board[i][col] = 0
 
-    return res
+if len(sys.argv) != 2:
+    print("Usage: nqueens N")
+    sys.exit(1)
 
-def print_solution(board, N):
-    for i in range(N):
-        for j in range(N):
-            print(board[i][j], end=" ")
-        print()
+N = sys.argv[1]
 
-def solve_nqueens(N):
-    if not N.isdigit():
-        print("N must be a number")
-        sys.exit(1)
-
+try:
     N = int(N)
+except ValueError:
+    print("N must be a number")
+    sys.exit(1)
 
-    if N < 4:
-        print("N must be at least 4")
-        sys.exit(1)
+if N < 4:
+    print("N must be at least 4")
+    sys.exit(1)
 
-    board = [[0 for _ in range(N)] for _ in range(N)]
+queen = NQueen(N)
+result = queen.nQueen(1)
 
-    if not solve_nqueens_util(board, 0, N):
-        print("No solution exists")
-
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: nqueens N")
-        sys.exit(1)
+for i in result:
+    print(i)
