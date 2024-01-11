@@ -1,5 +1,8 @@
 #!/usr/bin/python3
+"""N Queens module"""
+
 import sys
+
 
 def is_safe(board, row, col, N):
     # Check if there is a queen in the same row
