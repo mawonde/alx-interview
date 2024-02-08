@@ -12,7 +12,7 @@ def test0(n):
     return 0
 
 
-def island_perimeter(grid: List[List[int]]) -> int:
+def island_perimeter(grid):
     """
     Calculate the perimeter of the island described in grid.
 
